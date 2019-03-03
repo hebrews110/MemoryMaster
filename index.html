@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Memory Master</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="jquery.ui.touch-punch.min.js"></script>
+        <script src="jquery.alterclass.js"></script>
+        <script src="svg-injector.min.js"></script>
+        <link rel="stylesheet" href="memory.css">
+        <script src="memory.js"></script>
+    </head>
+    <body>
+        <div id="helpDialog" title="How to use" style="display: none;">
+            This is a memory playback game. A sound will be played and one
+            of the colored squares will light up.
+            <p>
+            Click the correct square. If you get it right, the pattern will
+            get longer and you'll have to play it back correctly.
+            <p>
+            If you get it wrong, the pattern will shorten till you get it right.
+            <p>
+            Try to get a pattern that's five sounds long!
+            <center>
+                <label for="infinite-checkbox">Free Mode</label>
+                <input type="checkbox" name="infinite-checkbox" id="infinite-checkbox">
+            </center>
+            <p>
+            You can also enable Free Mode with the button above. In this mode, you can make the pattern
+            as long as you want, but you can't make any mistakes, or you'll have to start over.
+            <p>
+            A bulb (<img src="bulb_on.svg" alt="Light bulb" id="help-bulb"/>) will appear
+            for each sound you get correct. You can use that to keep track of your
+            progress.
+            <p>
+            If you want to try a different mode later, just refresh the page.
+            <p>
+            <center><button class="ui-button ui-widget ui-corner-all"
+                        onclick="$('#helpDialog').dialog('close'); startGame();">OK</button></center>
+        </div>
+        <div id="header">Memory Master</div>
+        <div class="main-ui-holder">
+            <div id="num-bar">
+                <img src="bulb_on.svg" alt="Light bulb" class="bulb"/>
+            </div>
+            <div id="memory-board-wrapper">
+                <div id="memory-board">
+                    <div data-num="0" class="color-square red-square"></div>
+                    <div data-num="1" class="color-square green-square"></div>
+                    <div data-num="2" class="color-square blue-square"></div>
+                    <div data-num="3" class="color-square yellow-square"></div>
+                    <div data-num="4" class="color-square orange-square"></div>
+                    <div data-num="5" class="color-square purple-square"></div>
+                    <div data-num="6" class="color-square red-square"></div>
+                    <div data-num="7" class="color-square green-square"></div>
+                    <div data-num="8" class="color-square blue-square"></div>
+                    <div data-num="9" class="color-square yellow-square"></div>
+                    <div data-num="10" class="color-square orange-square"></div>
+                    <div data-num="11" class="color-square purple-square"></div>
+                    <div data-num="12" class="color-square red-square"></div>
+                </div>
+                
+            </div>
+        </div>
+    </body>
+</html>

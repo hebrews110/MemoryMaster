@@ -51,7 +51,8 @@ html, body {
     display: inline-block;
     width: 100%;
     z-index: 3;
-    max-width: 360px;
+    min-width: 200px;
+    max-width: 500px;
 }
 
 #help-bulb {
@@ -92,8 +93,12 @@ html, body {
 }
 
 .color-square {
-    width: 55px;
-    height: 55px;
+    width: 20vw;
+    height: 20vw;
+    min-width: 55px;
+    min-height: 55px;
+    max-width: 85px;
+    max-height: 85px;
     margin: 5px;
     background-color: rgb(50, 50, 50);
     border: solid #000000 6px;

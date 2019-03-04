@@ -10,7 +10,7 @@ var matchSpeed = 750;
 var infiniteMode = false;
 
 var numDone = 0;
-var numSquares = 13;
+var numSquares = 12;
 
 var currentPattern = [];
 
@@ -20,6 +20,7 @@ var clickedPattern = [];
 
 var cancelNote = 1;
 var noteTimeout = null;
+var noteTimeout2 = null;
 
 function shuffleSquares(ul) {
     for (var i = ul.children.length; i >= 0; i--) {
@@ -52,9 +53,10 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function playNote(n, doLightUp)
+function playNote(n, doLightUp, specialTime)
 {
     clearInterval(noteTimeout);
+    clearInterval(noteTimeout2);
     if(n < 0)
         return;
     stopPlayingSound();
@@ -65,6 +67,16 @@ function playNote(n, doLightUp)
     notes[n].currentTime = 0;
     notes[n].play();
     noteTimeout = setTimeout(stopPlayingSound, 1000);
+    if(doLightUp) {
+        var time;
+        if(specialTime === undefined)
+            time = 500;
+        else
+            time = 3 * specialTime / 4;
+        noteTimeout2 = setTimeout(function() {
+            $( noteSquares[cancelNote] ).removeClass("brighten-square");
+        }, time);
+    }
 }
 
 function sleep(ms) {
@@ -102,7 +114,7 @@ async function playSong(song, doLightUp, speed, callback) {
     $(".color-square").addClass("noclick");
     await sleep(1000);
     for(var i = 0; i < song.length; i++) {
-        playNote(song[i], doLightUp);
+        playNote(song[i], doLightUp, speed);
         await sleep(speed);
     }
     await sleep(1000);
@@ -163,12 +175,8 @@ $(function() {
         console.log(noteNum);
         lastClicked = noteNum;
         
-        playNote(noteNum);
+        playNote(noteNum, true);
         clickedPattern[clickIndex] = noteNum;
-        console.log("numDone " + numDone);
-        console.log("clickIndex " + clickIndex);
-        console.log("Expected " + currentPattern[clickIndex] + " got " + clickedPattern[clickIndex]);
-        console.log("Pattern: " + currentPattern);
         
         if(clickedPattern[clickIndex] !== currentPattern[clickIndex])
         {
@@ -199,19 +207,18 @@ $(function() {
             return;
         }
         clickIndex++;
-        console.log("Expected pattern length: " + currentPattern.length);
-        console.log("Current pattern length: " + clickedPattern.length);
         if(clickedPattern.length === currentPattern.length) {
             
             updateNumDone(numDone + 1);
             if(infiniteMode || numDone < 5) {
                 $("#header").text("Good job!");
-                playSong(theSong, false, 250, function() {
+                
+                setTimeout(function() {
                     addToPattern();
                     clickIndex = 0;
-                });
+                }, 2000); 
             } else if(!infiniteMode) {
-                $("#header").text("You finished! Great!");
+                $("#header").text("5 In a Row! Great!");
                 
                 
                 playSong(endSong, true, 300);

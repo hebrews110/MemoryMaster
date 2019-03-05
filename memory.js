@@ -150,6 +150,7 @@ function startGame() {
 }
 $(function() {
     $( "#infinite-checkbox" ).checkboxradio();
+    
     $("#helpDialog").dialog({
         maxHeight: $(window).height() - 50,
         modal: true,
@@ -221,7 +222,11 @@ $(function() {
                 $("#header").text("5 In a Row! Great!");
                 
                 
-                playSong(endSong, true, 300);
+                playSong(endSong, true, 300, function() {
+                    $("#playAgainDialog").dialog({
+                        height: 100,
+                    });
+                });
                 $(".color-square").addClass("noclick");
             }
         }

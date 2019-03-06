@@ -221,12 +221,10 @@ $(function() {
             } else if(!infiniteMode) {
                 $("#header").text("5 In a Row! Great!");
                 
-                
-                playSong(endSong, true, 300, function() {
-                    $("#playAgainDialog").dialog({
-                        height: 100,
-                    });
+                $("#playAgainDialog").dialog({
+                    height: 100
                 });
+                playSong(endSong, true, 300);
                 $(".color-square").addClass("noclick");
             }
         }

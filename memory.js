@@ -64,7 +64,7 @@ function playNote(n, doLightUp, specialTime)
     cancelNote = n;
     if(doLightUp)
         $( noteSquares[n] ).addClass("brighten-square");
-    notes[n].currentTime = 0;
+    notes[n].stop();
     notes[n].play();
     noteTimeout = setTimeout(stopPlayingSound, 1000);
     if(doLightUp) {
@@ -160,7 +160,10 @@ $(function() {
     var j = 0;
     /* Initialize the audio */
     for(var i = 1; i <= 52; i++) {
-        notes[i] = new Audio("notes/note" + pad(i, 2) + ".mp3");
+        notes[i] = new Howl({
+            src: [ "notes/note" + pad(i, 2) + ".mp3" ]
+        });
+        notes[i].load();
         if(i >= 16 && j < numSquares) {
             noteSquares[i] = $("#memory-board").children()[j];
             j++;
